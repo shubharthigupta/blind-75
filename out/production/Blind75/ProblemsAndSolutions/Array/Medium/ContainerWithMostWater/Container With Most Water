@@ -1,0 +1,69 @@
+## 🧠 Container With Most Water
+
+---
+
+### 📘 Problem Statement:
+
+> You are given an integer array `height` of length `n`. There are `n` vertical lines drawn such that the two endpoints of the line `i` are at `(i, 0)` and `(i, height[i])`.
+>
+> Find two lines that together with the x-axis form a container, such that the container contains the **most water**.
+>
+> Return the **maximum amount of water** a container can store.
+
+### 📌 Example:
+
+```java
+Input: height = [1,8,6,2,5,4,8,3,7]
+Output: 49
+Explanation: The maximum area is between lines at index 1 and 8:
+min(8, 7) * (8 - 1) = 7 * 7 = 49
+
+Input: height = [1,1]
+Output: 1
+```
+
+
+### 🔒 Constraints:
+
+* `n == height.length`
+* `2 <= n <= 10⁵`
+* `0 <= height[i] <= 10⁴`
+
+---
+
+## ✅ Key Idea:
+
+Use the **two-pointer technique** to efficiently compute the maximum area:
+
+1. Start with two pointers: one at the beginning (`left`) and one at the end (`right`).
+2. Calculate the area:
+   `area = min(height[left], height[right]) * (right - left)`
+3. Update `maxArea` if this area is larger than the previous one.
+4. Move the pointer pointing to the **shorter** line inward, because this might increase the height and thus potentially increase the area.
+
+
+## 💡 Notes to Memorize:
+
+* **Two-pointer approach** is optimal — no need for brute force.
+* Always move the pointer pointing to the **shorter height**, as moving the taller one can’t help.
+* Focus on **maximizing area**, not just height or width.
+* Avoid O(n²) nested loops — they will time out for large inputs.
+
+
+### 🛠️ High-Level Steps:
+
+* Initialize `left = 0`, `right = height.length - 1`, `maxArea = 0`
+* While `left < right`:
+
+    * Calculate area = `min(height[left], height[right]) * (right - left)`
+    * Update `maxArea` if this area is greater
+    * Move the pointer pointing to the **smaller height** inward
+* Return `maxArea`
+
+
+### ⏱️ Time and Space Complexity:
+
+| Type     | Complexity                                            |
+| -------- | ----------------------------------------------------- |
+| ⏳ Time   | `O(n)` — Single pass through array using two pointers |
+| 🧠 Space | `O(1)` — Constant extra space                         |

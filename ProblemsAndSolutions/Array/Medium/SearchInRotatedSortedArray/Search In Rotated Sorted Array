@@ -1,0 +1,77 @@
+## 🧠 Search in Rotated Sorted Array
+
+---
+
+### 📘 Problem Statement:
+
+> There is an integer array `nums` sorted in ascending order (with **distinct values**) and then rotated at an unknown pivot index.
+> Given the array and a target value, return the **index** of the target if it is in the array, or `-1` if it is not found.
+
+
+### 📌 Example:
+
+```
+Input: nums = [4,5,6,7,0,1,2], target = 0
+Output: 4
+
+Input: nums = [4,5,6,7,0,1,2], target = 3
+Output: -1
+
+Input: nums = [1], target = 0
+Output: -1
+```
+
+
+### 🔒 Constraints:
+
+* `1 <= nums.length <= 5000`
+* `-10⁴ <= nums[i] <= 10⁴`
+* All values in `nums` are **unique**
+* `nums` is a rotated array originally sorted in ascending order
+* `-10⁴ <= target <= 10⁴`
+
+---
+
+## ✅ Key Idea:
+
+This is a **modified binary search** problem due to the rotation. The key is to determine **which half of the array is sorted**, and narrow the search accordingly:
+
+1. Start with `left = 0`, `right = nums.length - 1`.
+2. While `left <= right`, calculate `mid` index.
+3. If `nums[mid] == target` → return `mid`.
+4. Determine which half is sorted:
+
+    * If `nums[left] <= nums[mid]` → left half is sorted
+
+        * Check if `target` lies in left half
+    * Else → right half is sorted
+
+        * Check if `target` lies in right half
+5. Narrow the search window accordingly.
+6. If loop ends → target not found → return `-1`.
+
+
+## 💡 Notes to Memorize:
+
+* This is a **binary search with rotation logic**.
+* The key observation is that **at least one half (left or right) will always be sorted**.
+* Use the sorted half to decide which direction to discard.
+
+### 🛠️ High-Level Steps:
+
+* Initialize `left = 0`, `right = nums.length - 1`.
+* While `left <= right`:
+
+    * Calculate `mid = (left + right) / 2`
+    * If `nums[mid] == target`, return `mid`
+    * Determine if left half is sorted:
+
+        * If target lies within it → shift right pointer
+        * Else → shift left pointer
+* If not found → return `-1`
+
+
+### ⏱️ Time and Space Complexity:
+
+* **Time Complexity**: `O(log n)` — Efficient binary search
+* **Space Complexity**: `O(1)` — No extra space used

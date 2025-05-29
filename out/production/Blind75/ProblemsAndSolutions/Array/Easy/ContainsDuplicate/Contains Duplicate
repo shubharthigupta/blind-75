@@ -1,0 +1,64 @@
+## 🧠 Contains Duplicate
+
+---
+
+### 📘 Problem Statement:
+
+> Given an integer array `nums`, return `true` if any value appears **at least twice** in the array, and return `false` if every element is **distinct**.
+
+
+### 📌 Example:
+
+```java
+Input: nums = [1, 2, 3, 1]  
+Output: true
+
+Input: nums = [1, 2, 3, 4]  
+Output: false
+
+Input: nums = [1,1,1,3,3,4,3,2,4,2]  
+Output: true
+```
+
+
+### 🔒 Constraints:
+
+* `1 <= nums.length <= 10^5`
+* `-10^9 <= nums[i] <= 10^9`
+
+---
+
+## ✅ Key Idea:
+
+Use a **HashSet** to keep track of the numbers seen so far:
+
+1. Iterate through the array.
+2. For each number:
+
+* If the number already exists in the set → **return true**
+* Else → add it to the set
+3. If the loop completes without finding duplicates → **return false**
+
+
+## 💡 Notes to Memorize:
+
+* Use a **Set** when checking for uniqueness across a list.
+* A `HashSet` provides **O(1)** average time for `contains()` and `add()`.
+* Avoid brute-force nested loops—unnecessary and slow (`O(n²)`).
+
+
+### 🛠️ High-Level Steps:
+
+* Create an empty `Set<Integer>`.
+* Loop through each number in the array:
+
+    * If it exists in the set → return `true`
+    * Else, add it to the set
+* After loop, return `false`
+
+
+### ⏱️ Time and Space Complexity:
+
+* **Time Complexity**: `O(n)` — One pass through the array with O(1) set operations
+* **Space Complexity**: `O(n)` — In worst case, all elements are unique and stored in the set
+

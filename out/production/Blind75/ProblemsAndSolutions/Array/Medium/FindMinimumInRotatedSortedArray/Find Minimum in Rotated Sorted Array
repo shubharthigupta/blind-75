@@ -1,0 +1,71 @@
+## 🧠 Find Minimum in Rotated Sorted Array
+
+---
+
+### 📘 Problem Statement:
+
+> Suppose an array of length `n` sorted in ascending order is **rotated** between `1` and `n` times.
+> You are given the rotated array `nums` and are asked to find the **minimum element**.
+>
+> You must write an algorithm that runs in **O(log n)** time.
+
+
+### 📌 Example:
+
+```java
+Input: nums = [3,4,5,1,2]
+Output: 1
+
+Input: nums = [4,5,6,7,0,1,2]
+Output: 0
+
+Input: nums = [11,13,15,17]
+Output: 11
+```
+
+
+### 🔒 Constraints:
+
+* `n == nums.length`
+* `1 <= n <= 5000`
+* `-5000 <= nums[i] <= 5000`
+* All the integers of `nums` are **unique**
+* `nums` is guaranteed to be a **rotated sorted array**
+
+---
+
+## ✅ Key Idea:
+
+Use **binary search** to find the pivot point where rotation occurred, which is also the minimum value.
+
+1. If the array is already sorted (`nums[0] < nums[n - 1]`), return `nums[0]`.
+2. Use two pointers `left` and `right`.
+3. While `left < right`, calculate `mid`:
+
+    * If `nums[mid] > nums[right]`, the **minimum is in the right half**, so `left = mid + 1`.
+    * Else, the **minimum is in the left half**, so `right = mid`.
+4. When loop ends, `left == right` → minimum found.
+
+
+## 💡 Notes to Memorize:
+
+* The **smallest element is the only element** which is **smaller than its previous one**.
+* If `nums[mid] > nums[right]` → rotation point is to the right.
+* If `nums[mid] < nums[right]` → rotation point is to the left or could be `mid`.
+
+
+### 🛠️ High-Level Steps:
+
+* Initialize `left = 0`, `right = nums.length - 1`
+* If `nums[left] < nums[right]` → array is already sorted, return `nums[0]`
+* Perform binary search:
+
+    * If `nums[mid] > nums[right]`, search right half
+    * Else, search left half
+* Return `nums[left]` when loop ends
+
+
+### ⏱️ Time and Space Complexity:
+
+* **Time Complexity**: `O(log n)` — Binary search halves the range each step
+* **Space Complexity**: `O(1)` — No extra space used

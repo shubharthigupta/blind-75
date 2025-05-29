@@ -1,0 +1,73 @@
+## 🧠 Sum of Two Integers
+
+---
+
+### 📘 Problem Statement:
+
+> Given two integers `a` and `b`, return the **sum** of the two integers **without using the operators** `+` and `-`.
+
+
+### 📌 Example:
+
+```java
+Input: a = 1, b = 2
+Output: 3
+
+Input: a = 2, b = 3
+Output: 5
+
+Input: a = -1, b = 1
+Output: 0
+```
+
+
+### 🔒 Constraints:
+
+* `-1000 <= a, b <= 1000`
+* The function must not use `+`, `-`, `*`, or `/` operators.
+
+---
+
+## ✅ Key Idea:
+
+Use **bitwise operations** to simulate addition:
+
+1. Use XOR (`^`) to perform **bitwise addition** **without carry**.
+
+    * `a ^ b` gives sum of bits where no carry is involved.
+2. Use AND (`&`) and left shift (`<<`) to compute the **carry**.
+
+    * `(a & b) << 1` gives the carry for each bit.
+3. Repeat until **carry becomes 0**:
+
+    * `carry = (a & b) << 1`
+    * `a = a ^ b`
+    * `b = carry`
+
+This continues to simulate binary addition until all carries are resolved.
+
+
+## 💡 Notes to Memorize:
+
+* XOR (`^`) adds without carry.
+* AND + left shift finds the carry.
+* Loop until carry is 0.
+* Works for both **positive and negative integers** because bitwise operations handle two’s complement internally in Java.
+
+
+### 🛠️ High-Level Steps:
+
+* While `b != 0`:
+
+    * Compute carry: `(a & b) << 1`
+    * Compute partial sum: `a = a ^ b`
+    * Update `b = carry`
+* Return `a` as the final result
+
+
+### ⏱️ Time and Space Complexity:
+
+| Type     | Complexity                                                |
+| -------- | --------------------------------------------------------- |
+| ⏳ Time   | `O(1)` – constant time (32-bit integer, fixed iterations) |
+| 🧠 Space | `O(1)` – no extra space used                              |

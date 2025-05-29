@@ -1,0 +1,59 @@
+## 🧠 Best Time to Buy and Sell Stock
+
+---
+
+### 📘 Problem Statement:
+
+> You are given an array `prices` where `prices[i]` is the price of a given stock on the `i-th` day.
+> You want to **maximize your profit** by choosing a **single day to buy** one stock and **choosing a different day in the future to sell** that stock.
+
+Return the **maximum profit** you can achieve from this transaction.
+If you cannot achieve any profit, return `0`.
+
+### 📌 Example:
+
+```
+Input: prices = [7, 1, 5, 3, 6, 4]
+Output: 5  
+Explanation: Buy on day 1 (price = 1) and sell on day 4 (price = 6), profit = 6 - 1 = 5.
+```
+
+```
+Input: prices = [7, 6, 4, 3, 1]
+Output: 0  
+Explanation: No profit possible as prices keep decreasing.
+```
+
+### 🔒 Constraints:
+
+* `1 <= prices.length <= 10^5`
+* `0 <= prices[i] <= 10^4`
+
+---
+
+## ✅ Key Idea:
+
+This is a **single pass** problem where you:
+
+* Track the **minimum price seen so far**
+* Calculate the **potential profit** at each step
+* Track the **maximum profit** across all days
+
+## 💡 Notes to Memorize:
+
+* Always **buy at the lowest seen so far**, and **sell today** to check profit.
+* Only **one transaction allowed** (buy and sell once).
+* Use a **greedy approach** by keeping track of running minimum and maximum profit.
+
+### 🛠️ High-Level Steps:
+
+1. Initialize `minPrice = prices[0]`, `maxProfit = 0`
+2. For each `price` in the array:
+
+    * If `price < minPrice` → update `minPrice`
+    * Else → calculate profit `price - minPrice`, and update `maxProfit` if it's greater
+
+### ⏱️ Time and Space Complexity:
+
+* **Time Complexity**: `O(n)` — Single pass through the array
+* **Space Complexity**: `O(1)` — Constant space

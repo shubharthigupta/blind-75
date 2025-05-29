@@ -1,0 +1,87 @@
+## 🧠 Number of 1 Bits
+
+---
+
+### 📘 Problem Statement:
+
+> Write a function that takes an **unsigned integer** and returns the **number of '1' bits** it has (also known as the Hamming weight).
+>
+> The input can be a **binary representation of a 32-bit integer**.
+
+
+### 📌 Example:
+
+```
+Input: n = 00000000000000000000000000001011
+Output: 3
+Explanation: The input has three '1' bits.
+
+Input: n = 00000000000000000000000010000000
+Output: 1
+
+Input: n = 11111111111111111111111111111101
+Output: 31
+```
+
+
+### 🔒 Constraints:
+
+* The input must be treated as an **unsigned 32-bit integer**.
+* The input is given as an integer, but represents 32-bit binary form.
+
+---
+
+## ✅ Key Idea:
+
+Use **bitwise manipulation** to count how many 1s appear in the binary representation of the number.
+
+### Two common approaches:
+
+1. **Bit Shifting**:
+
+    * Iterate through all 32 bits of the integer.
+    * Check the least significant bit using `(n & 1)` and right shift by 1 (`n >>>= 1`).
+    * Increment the count when `(n & 1)` is `1`.
+
+2. **Brian Kernighan’s Algorithm (Optimized)**:
+
+    * Repeatedly flip the least-significant 1 bit to 0 using:
+      `n = n & (n - 1)`
+    * Count how many times this operation is performed.
+    * This runs in O(number of 1s) instead of always 32 iterations.
+
+
+## 💡 Notes to Memorize:
+
+* `n & 1` extracts the least significant bit.
+* `n >>> 1` does an unsigned right shift.
+* `n & (n - 1)` drops the lowest set bit — very efficient trick!
+* Use `>>>` (unsigned shift) instead of `>>` to handle unsigned logic in Java.
+
+
+### 🛠️ High-Level Steps:
+
+**Bit Shifting Method:**
+
+* Initialize `count = 0`
+* Repeat 32 times:
+
+    * If `(n & 1) == 1`, increment `count`
+    * Do `n >>>= 1` to check the next bit
+* Return `count`
+
+**Brian Kernighan's Method:**
+
+* Initialize `count = 0`
+* While `n != 0`:
+
+    * `n = n & (n - 1)`
+    * Increment `count`
+* Return `count`
+
+### ⏱️ Time and Space Complexity:
+
+| Type     | Bit Shifting     | Brian Kernighan's    |
+| -------- | ---------------- | -------------------- |
+| ⏳ Time   | `O(32)` = `O(1)` | `O(k)`, `k = 1-bits` |
+| 🧠 Space | `O(1)`           | `O(1)`               |

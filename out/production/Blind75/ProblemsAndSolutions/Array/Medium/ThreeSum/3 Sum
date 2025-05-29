@@ -1,0 +1,81 @@
+## 🧠 3Sum
+
+---
+
+### 📘 Problem Statement:
+
+> Given an integer array `nums`, return all the **triplets** `[nums[i], nums[j], nums[k]]` such that `i != j`, `i != k`, and `j != k`, and
+> `nums[i] + nums[j] + nums[k] == 0`.
+>
+> Notice that the solution set **must not contain duplicate triplets**.
+
+
+### 📌 Example:
+
+```java
+Input: nums = [-1, 0, 1, 2, -1, -4]
+Output: [[-1, -1, 2], [-1, 0, 1]]
+
+Input: nums = [0, 1, 1]
+Output: []
+
+Input: nums = [0, 0, 0]
+Output: [[0, 0, 0]]
+```
+
+
+### 🔒 Constraints:
+
+* `3 <= nums.length <= 3000`
+* `-10⁵ <= nums[i] <= 10⁵`
+
+---
+
+## ✅ Key Idea:
+
+Use the **two-pointer technique** on a **sorted array** to find triplets that sum to zero.
+
+1. **Sort the array** to make it easier to avoid duplicates and use two pointers.
+2. Iterate over the array with index `i`:
+
+    * If `i > 0` and `nums[i] == nums[i-1]`, skip to avoid duplicates.
+3. For each `i`, set two pointers:
+
+    * `left = i + 1`
+    * `right = nums.length - 1`
+4. While `left < right`:
+
+    * Calculate the sum: `nums[i] + nums[left] + nums[right]`
+    * If sum == 0 → add triplet to result, move `left` and `right`, skip duplicates
+    * If sum < 0 → move `left++`
+    * If sum > 0 → move `right--`
+
+
+## 💡 Notes to Memorize:
+
+* **Sort the array** first.
+* **Avoid duplicates** by checking `nums[i] == nums[i-1]` and skipping.
+* Use two pointers to **reduce time complexity** from O(n³) to O(n²).
+* **Don’t use HashSet of lists** — sorting and skipping duplicates is cleaner.
+
+
+### 🛠️ High-Level Steps:
+
+* Sort the array `nums`.
+* Loop through the array from `i = 0` to `n - 3`.
+
+    * Skip if `nums[i] == nums[i-1]` (to avoid duplicate triplets)
+    * Set two pointers `left = i + 1`, `right = nums.length - 1`
+    * While `left < right`:
+
+        * Compute the sum.
+        * Adjust pointers based on whether sum is `<`, `==`, or `> 0`.
+        * Skip duplicate values after a match.
+
+
+### ⏱️ Time and Space Complexity:
+
+| Type     | Complexity                                                      |
+| -------- | --------------------------------------------------------------- |
+| ⏳ Time   | `O(n²)` — due to two-pointer scan within a loop                 |
+| 🧠 Space | `O(1)` — ignoring the output list, which is required for result |

@@ -1,0 +1,78 @@
+## 🧠 Product of Array Except Self
+
+---
+
+### 📘 Problem Statement:
+
+> Given an integer array `nums`, return an array `answer` such that `answer[i]` is equal to the product of all the elements of `nums` **except** `nums[i]`.
+>
+> You must solve it **without using division**, and in `O(n)` time.
+
+
+### 📌 Example:
+
+```java
+Input: nums = [1, 2, 3, 4]
+Output: [24, 12, 8, 6]
+
+Input: nums = [-1, 1, 0, -3, 3]
+Output: [0, 0, 9, 0, 0]
+```
+
+
+### 🔒 Constraints:
+
+* `2 <= nums.length <= 10⁵`
+* `-30 <= nums[i] <= 30`
+* The product of any prefix or suffix of `nums` is guaranteed to fit in a 32-bit integer.
+
+---
+
+## ✅ Key Idea:
+
+Use **prefix and suffix products** to compute the result for each index:
+
+1. **Prefix Pass**:
+
+    * Create an output array and initialize `output[i]` with the product of all elements **before index i**.
+2. **Postfix Pass**:
+
+    * Traverse the array from the right, maintaining a running product of all elements **after index i**.
+    * Multiply this running product with the corresponding `output[i]`.
+
+🚫 **Avoid division**, which would otherwise make it trivial but invalid.
+
+
+## 💡 Notes to Memorize:
+
+* The product at index `i` is the product of:
+
+    * all elements **before i** (prefix product)
+    * and all elements **after i** (postfix product)
+* Two passes:
+
+    1. Left to right → fill prefix products
+    2. Right to left → multiply with postfix products
+* Keep space optimal by using the output array itself and a single postfix variable.
+
+
+### 🛠️ High-Level Steps:
+
+* Initialize `output` array with 1s.
+* **Pass 1 (Left to Right)**:
+
+    * Track running prefix product.
+    * For each `i`, set `output[i] = prefix` and update `prefix *= nums[i]`.
+* **Pass 2 (Right to Left)**:
+
+    * Track running postfix product.
+    * For each `i` from end to start, set `output[i] *= postfix` and update `postfix *= nums[i]`.
+* Return the `output` array.
+
+
+### ⏱️ Time and Space Complexity:
+
+| Type     | Complexity                                             |
+| -------- | ------------------------------------------------------ |
+| ⏳ Time   | `O(n)`                                                 |
+| 🧠 Space | `O(1)` (excluding the output array, which is required) |
