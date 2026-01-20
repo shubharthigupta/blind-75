@@ -1,4 +1,4 @@
-package ClimbingStairs;
+package DynamicProgramming.ClimbingStairs;
 
 public class ClimbingStairsSolution {
 
