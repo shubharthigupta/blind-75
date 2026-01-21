@@ -1,0 +1,180 @@
+## 🧠 Sudoku Solver
+
+---
+
+### 📘 Problem Statement:
+
+> You are given a partially filled **9×9 Sudoku board**.
+> Empty cells are represented by `'.'`.
+>
+> Fill the board so that every row, every column, and each **3×3 sub-box** contains the digits `1` through `9` exactly once.
+>
+> ⚠️ The solution must modify the board **in-place**.
+
+---
+
+### 📌 Sudoku Rules Recap:
+
+For a placement to be valid:
+
+1. The number must not already exist in the **same row**
+2. The number must not already exist in the **same column**
+3. The number must not already exist in the **same 3×3 sub-box**
+
+---
+
+### 📌 Example (Partial Board):
+
+```
+5 3 . | . 7 . | . . .
+6 . . | 1 9 5 | . . .
+. 9 8 | . . . | . 6 .
+------+-------+------
+8 . . | . 6 . | . . 3
+4 . . | 8 . 3 | . . 1
+7 . . | . 2 . | . . 6
+------+-------+------
+. 6 . | . . . | 2 8 .
+. . . | 4 1 9 | . . 5
+. . . | . 8 . | . 7 9
+```
+
+---
+
+### 💡 Core Idea (Backtracking):
+
+This problem is a classic **backtracking** problem.
+
+* Try to place a valid number (`1–9`) in each empty cell
+* If a placement leads to an invalid board later, **undo it (backtrack)**
+* Continue until the board is fully solved
+
+Backtracking explores all valid possibilities while pruning invalid paths early.
+
+---
+
+### 🧩 High-Level Approach:
+
+1. Traverse the board cell by cell
+2. When an empty cell (`'.'`) is found:
+
+   * Try digits `1` to `9`
+3. Check if the digit can be placed safely
+4. Recursively attempt to solve the rest of the board
+5. If no digit works, backtrack and try a different number
+
+---
+
+### 🛠️ Helper Methods Explained:
+
+#### 🔹 Check Number in Row
+
+```java
+private static boolean isNumberInRow(char[][] board, int number, int row)
+```
+
+* Scans the given row
+* Returns `true` if the number already exists
+
+---
+
+#### 🔹 Check Number in Column
+
+```java
+private static boolean isNumberInColumn(char[][] board, int number, int column)
+```
+
+* Scans the given column
+* Ensures column uniqueness
+
+---
+
+#### 🔹 Check Number in 3×3 Box
+
+```java
+private static boolean isNumberInBox(char[][] board, int number, int row, int column)
+```
+
+* Computes the **top-left index** of the 3×3 box
+* Iterates only within that sub-grid
+
+Key calculation:
+
+```
+localBoxRow    = row - row % 3
+localBoxColumn = column - column % 3
+```
+
+---
+
+#### 🔹 Validate Placement
+
+```java
+private static boolean isValidPlacement(char[][] board, int number, int row, int column)
+```
+
+A placement is valid only if:
+
+* Not in the same row
+* Not in the same column
+* Not in the same 3×3 box
+
+---
+
+### 🔄 Recursive Backtracking Logic:
+
+```java
+public static boolean solveBoard(char[][] board)
+```
+
+**Algorithm:**
+
+1. Loop through each cell
+2. If the cell is empty:
+
+   * Try digits `1–9`
+3. If placement is valid:
+
+   * Place the number
+   * Recursively solve the rest of the board
+4. If recursion fails:
+
+   * Reset the cell to `'.'`
+   * Try the next number
+5. If no number fits, return `false`
+
+When the board has no empty cells left, the puzzle is solved.
+
+---
+
+### 🧠 Why Backtracking Works Here:
+
+* Sudoku has **strict constraints**, which drastically reduce valid choices
+* Backtracking avoids exploring invalid paths fully
+* Guarantees a solution if one exists
+
+---
+
+### ⚠️ Points to Remember:
+
+* Always backtrack if a choice leads to failure
+* Modify the board **in-place**
+* Convert numbers to characters using `(char)(number + '0')`
+* Correct 3×3 box indexing is critical
+* Return `false` immediately when no valid number fits
+
+---
+
+### ⏱️ Time and Space Complexity:
+
+* **Time Complexity**: Exponential in worst case (`O(9^(n*n))`), but heavily pruned
+* **Space Complexity**: `O(n*n)` due to recursion stack
+
+---
+
+### ✅ Final Takeaway:
+
+> Sudoku Solver is a textbook example of **backtracking with constraints**.
+> Once validation logic is clean, the recursive solution becomes elegant and powerful.
+
+💡 **Remember:** Try → Validate → Recurse → Backtrack 🔁
