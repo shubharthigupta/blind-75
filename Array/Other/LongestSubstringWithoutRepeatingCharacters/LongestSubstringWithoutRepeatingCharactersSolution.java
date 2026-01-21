@@ -1,4 +1,4 @@
-package Array.Easy.LongestSubstringWithoutRepeatingCharactersProblem;
+package Array.Other.LongestSubstringWithoutRepeatingCharacters;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -2,55 +2,55 @@
 
 ## Array2 Problems
 
-### 1. Two Sum
+### 1. Two Sum (E)
 **Problem**: Find indices of two numbers that add up to the target.
 - Use a HashMap to store complement values while iterating.
 - Return indices when match found.
 - **Time**: O(n), **Space**: O(n)
 
-### 2. Best Time to Buy and Sell Stock
+### 2. Best Time to Buy and Sell Stock (E)
 **Problem**: Max profit from buying and selling once.
 - Track minimum price and max profit while traversing.
 - **Time**: O(n), **Space**: O(1)
 
-### 3. Contains Duplicate
+### 3. Contains Duplicate (E)
 **Problem**: Check if any value appears at least twice.
 - Use a HashSet to track seen elements.
 - **Time**: O(n), **Space**: O(n)
 
-### 4. Product of Array2 Except Self
+### 4. Product of Array2 Except Self (M)
 **Problem**: Return array where each element is the product of all other elements.
 - Use prefix and postfix product arrays.
 - Avoid division.
 - **Time**: O(n), **Space**: O(1) (excluding output array)
 
-### 5. Maximum Subarray
+### 5. Maximum Subarray (M)
 **Problem**: Find the contiguous subarray with the largest sum.
 - Use Kadane’s algorithm: track current sum and max sum.
 - **Time**: O(n), **Space**: O(1)
 
-### 6. Maximum Product Subarray
+### 6. Maximum Product Subarray (M)
 **Problem**: Find the subarray with the maximum product.
 - Track max and min product at each step (due to negatives).
 - **Time**: O(n), **Space**: O(1)
 
-### 7. Find Minimum in Rotated Sorted Array2
+### 7. Find Minimum in Rotated Sorted Array2 (M)
 **Problem**: Find the minimum in a rotated sorted array without duplicates.
 - Use binary search.
 - **Time**: O(log n), **Space**: O(1)
 
-### 8. Search in Rotated Sorted Array2
+### 8. Search in Rotated Sorted Array2 (M)
 **Problem**: Search for a target in a rotated sorted array.
 - Use modified binary search accounting for rotation.
 - **Time**: O(log n), **Space**: O(1)
 
-### 9. 3Sum
+### 9. 3Sum (M)
 **Problem**: Find all unique triplets that sum to zero.
 - Sort array, then use two-pointer technique.
 - Skip duplicates.
 - **Time**: O(n^2), **Space**: O(1)
 
-### 10. Container With Most Water
+### 10. Container With Most Water (M)
 **Problem**: Find max water container using array of heights.
 - Use two-pointer approach from both ends.
 - **Time**: O(n), **Space**: O(1)
