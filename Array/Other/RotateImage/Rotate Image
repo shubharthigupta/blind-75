@@ -1,0 +1,157 @@
+## 🧠 Rotate Image
+
+---
+
+### 📘 Problem Statement:
+
+> You are given an `n x n` 2D matrix representing an image.
+> Rotate the image **90 degrees clockwise**.
+>
+> ⚠️ The rotation must be done **in-place**, without using any additional 2D matrix.
+
+---
+
+### 📌 Example:
+
+```
+Input:
+matrix = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9]
+]
+
+Output:
+[
+  [7, 4, 1],
+  [8, 5, 2],
+  [9, 6, 3]
+]
+```
+
+---
+
+### 💡 Core Idea (Layer-by-Layer Rotation):
+
+Instead of using transpose + reverse, this solution rotates the matrix **layer by layer**.
+
+* Treat the matrix as a set of **concentric squares (layers)**
+* Rotate one layer at a time, starting from the **outermost layer**
+* For each layer, perform a **4-way element swap**
+
+This approach directly simulates the rotation process.
+
+---
+
+### 🧩 High-Level Approach:
+
+1. Validate that the matrix is **non-empty and square**
+2. Iterate through each **layer** (from outer to inner)
+3. For each layer:
+
+    * Identify the **first** and **last** index
+    * Rotate elements in groups of four
+
+---
+
+### 🔄 Understanding the 4-Way Swap:
+
+For a given layer:
+
+```
+Top    → Right
+Left   → Top
+Bottom → Left
+Right  → Bottom
+```
+
+This rotation is achieved using a temporary variable.
+
+---
+
+### 🛠️ Step-by-Step Breakdown:
+
+#### 🔹 Step 1: Matrix Validation
+
+```java
+if(matrix.length == 0 || matrix.length != matrix[0].length) return;
+```
+
+* Ensures the matrix is square (`n x n`)
+* Prevents invalid operations
+
+---
+
+#### 🔹 Step 2: Iterate Over Layers
+
+```java
+for(int layer = 0; layer < matrix.length / 2; layer++) {
+    int first = layer;
+    int last = matrix.length - 1 - layer;
+}
+```
+
+* Only `n/2` layers exist in an `n x n` matrix
+* `first` and `last` define the boundaries of the current layer
+
+---
+
+#### 🔹 Step 3: Rotate Elements Within a Layer
+
+```java
+for(int i = first; i < last; i++) {
+    int offset = i - first;
+    int temp = matrix[first][i];
+
+    matrix[first][i] = matrix[last - offset][first];
+    matrix[last - offset][first] = matrix[last][last - offset];
+    matrix[last][last - offset] = matrix[i][last];
+    matrix[i][last] = temp;
+}
+```
+
+**What happens here:**
+
+* Save the **top** element
+* Move **left → top**
+* Move **bottom → left**
+* Move **right → bottom**
+* Assign saved top → **right**
+
+Each iteration rotates one group of four elements.
+
+---
+
+### 🧠 Visual Intuition (Single Rotation):
+
+```
+(0,0) ← (2,0) ← (2,2) ← (0,2)
+```
+
+This operation is repeated for all elements in the layer.
+
+---
+
+### ⚠️ Points to Remember:
+
+* The matrix must be **square**
+* Always rotate **layer by layer**
+* Each layer requires multiple **4-way swaps**
+* Use a temporary variable to avoid data loss
+* Only iterate until `n / 2` layers
+
+---
+
+### ⏱️ Time and Space Complexity:
+
+* **Time Complexity**: `O(n²)` — Every element is moved once
+* **Space Complexity**: `O(1)` — In-place rotation
+
+---
+
+### ✅ Final Takeaway:
+
+> This layer-by-layer approach closely mimics how a human would rotate an image.
+> It is efficient, in-place, and ideal for interviews where extra space is restricted.
+
+💡 **Remember:** Rotate **four elements at a time**, one layer at a time 🚀
