@@ -1,0 +1,164 @@
+## 🧠 First Missing Positive
+
+---
+
+### 📘 Problem Statement:
+
+> Given an **unsorted integer array** `nums`, find the **smallest missing positive integer**.
+>
+> ⚠️ You must implement an algorithm that runs in **O(n)** time and uses **O(1)** extra space.
+
+---
+
+### 📌 Examples:
+
+```
+Input: nums = [1,2,0]
+Output: 3
+```
+
+```
+Input: nums = [3,4,-1,1]
+Output: 2
+```
+
+```
+Input: nums = [7,8,9,11,12]
+Output: 1
+```
+
+---
+
+### 💡 Core Idea (Cyclic Sort / Index Placement):
+
+The key observation is:
+
+> For an array of size `n`, the **first missing positive** must lie in the range **[1, n+1]**.
+
+So the idea is to:
+
+* Place each positive number `x` (where `1 ≤ x ≤ n`) at **index `x - 1`**
+* Ignore negative numbers, zeros, and numbers greater than `n`
+* After rearrangement, the first index where `nums[i] != i + 1` gives the answer
+
+This technique is commonly known as **cyclic sort**.
+
+---
+
+### 🧩 High-Level Approach:
+
+1. Iterate through the array
+2. For each element `nums[i]`:
+
+   * If it lies in the range `[1, n]`
+   * And it is not already in its correct position
+   * Swap it to its correct index (`nums[i] - 1`)
+3. After rearrangement, scan the array again
+4. The first index where `nums[i] != i + 1` is the missing number
+
+---
+
+### 🛠️ Step-by-Step Breakdown:
+
+#### 🔹 Step 1: Rearrange Elements to Correct Indices
+
+```java
+int n = nums.length;
+int i = 0;
+while (i < n) {
+    int correctIdx = nums[i] - 1;
+    if (nums[i] > 0 && nums[i] <= n && nums[i] != nums[correctIdx]) {
+        swap(nums, i, correctIdx);
+    } else {
+        i++;
+    }
+}
+```
+
+**What this does:**
+
+* Keeps swapping until each valid number is either:
+
+  * In its correct position, or
+  * Out of the valid range
+* The index `i` only increments when no swap is required
+
+---
+
+#### 🔹 Step 2: Find the First Missing Positive
+
+```java
+for (i = 0; i < n; i++) {
+    if (nums[i] != i + 1) {
+        return i + 1;
+    }
+}
+return n + 1;
+```
+
+* If all positions `0 → n-1` contain correct values
+* Then the missing positive is `n + 1`
+
+---
+
+#### 🔹 Step 3: Swap Utility Method
+
+```java
+private static void swap(int[] nums, int index1, int index2) {
+    int temp = nums[index1];
+    nums[index1] = nums[index2];
+    nums[index2] = temp;
+}
+```
+
+* Simple in-place swap
+* No extra space used
+
+---
+
+### 🧠 Visual Intuition:
+
+For input:
+
+```
+[3, 4, -1, 1]
+```
+
+After rearrangement:
+
+```
+[1, -1, 3, 4]
+```
+
+Now scanning:
+
+* Index `0` → `1` ✅
+* Index `1` → expected `2`, found `-1` ❌
+
+➡️ Answer = `2`
+
+---
+
+### ⚠️ Points to Remember:
+
+* Only numbers in the range **[1, n]** matter
+* Ignore negative numbers, zeros, and numbers > `n`
+* Each number ideally belongs at index `number - 1`
+* Use a `while` loop — a `for` loop can miss swaps
+* The array itself is used as a **hash map**
+
+---
+
+### ⏱️ Time and Space Complexity:
+
+* **Time Complexity**: `O(n)` — each element is swapped at most once
+* **Space Complexity**: `O(1)` — in-place, no extra data structures
+
+---
+
+### ✅ Final Takeaway:
+
+> This problem is a classic example of using **index mapping** to achieve constant space.
+> Once you recognize the valid range `[1, n]`, the solution becomes systematic.
+
+💡 **Remember:** Put each number where it belongs, then scan for the first mismatch 🚀
